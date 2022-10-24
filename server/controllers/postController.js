@@ -4,7 +4,7 @@ import PostModel from "../models/post.js"
 export const getAll = async (request, resolve) => {
     try {
         const posts = await PostModel.find().populate('user').exec();
-
+        console.log(posts)
         resolve.json(posts)
     } catch (error) {
         resolve.status(400).json({
@@ -35,6 +35,7 @@ export const getOne = async (request, resolve) => {
         },
         (err, doc) => {
             resolve.json(doc)
+
         })
         
     } catch (error) {

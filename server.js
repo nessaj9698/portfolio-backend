@@ -5,9 +5,10 @@ import {checkAuth, handleValidationErrors} from './server/utils/index.js'
 import { userController, postController } from './server/controllers/index.js';
 import multer from 'multer'
 import cors from 'cors'
+import fs from 'fs'
 
 mongoose.connect(
-    process.env.MONGODB_URI
+    'mongodb+srv://nessaj:htrcfh98@cluster0.0cezso6.mongodb.net/?retryWrites=true&w=majority'
 )
     .then(() => console.log('DB is ok'))
     .catch(err => {
@@ -23,6 +24,9 @@ app.use('/uploads', express.static('uploads'))
 
 const storage = multer.diskStorage({
     destination: (_, __, cb) => {
+        if (!fs.existsSync('uploads')) {
+            fs.mkdirSync('uploads')
+        }
         cb(null, 'uploads')
     },
     filename: (_, file, cb) => {
@@ -49,7 +53,7 @@ app.post('/posts', checkAuth, postCreateValidator,postController.create)
 app.delete('/posts/:id', checkAuth, postController.remove)
 app.patch('/posts/:id', checkAuth, handleValidationErrors, postController.update)
 
-app.listen(process.env.PORT || 4444, (err) => {
+app.listen(3333, (err) => {
     if (err) {
         console.log(err)
     }
