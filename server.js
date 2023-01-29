@@ -6,9 +6,10 @@ import { userController, postController } from './server/controllers/index.js';
 import multer from 'multer'
 import cors from 'cors'
 import fs from 'fs'
+import { ModifierFlags } from 'typescript';
 
 mongoose.connect(
-    process.env.MONGODB_URI
+    'mongodb+srv://nessaj:htrcfh98@cluster0.0cezso6.mongodb.net/blog'
 )
     .then(() => console.log('DB is ok'))
     .catch(err => {
@@ -60,3 +61,5 @@ app.listen(process.env.PORT || 4444, (err) => {
     console.log('server is ok')
 })
 
+
+module.exports = app
