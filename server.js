@@ -36,26 +36,24 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage })
 
-app.get('/', (request, resolve) => {
-    console.log(resolve)
+
+
+app.post('/auth/login', loginValidator,handleValidationErrors, userController.login)
+app.post('/auth/register', registerValidator,handleValidationErrors, userController.register)
+app.get('/auth/me', checkAuth, userController.getMe)
+
+app.post('/upload', checkAuth, upload.single('image'), (request, resolve) => {
+    resolve.json({
+        url:`/uploads/${request.file.originalname}`
+    })
 })
 
-// app.post('/auth/login', loginValidator,handleValidationErrors, userController.login)
-// app.post('/auth/register', registerValidator,handleValidationErrors, userController.register)
-// app.get('/auth/me', checkAuth, userController.getMe)
-
-// app.post('/upload', checkAuth, upload.single('image'), (request, resolve) => {
-//     resolve.json({
-//         url:`/uploads/${request.file.originalname}`
-//     })
-// })
-
-// app.get('/posts', postController.getAll)
-// app.get('/posts/tags', postController.getAllTags)
-// app.get('/posts/:id', postController.getOne)
-// app.post('/posts', checkAuth, postCreateValidator,postController.create)
-// app.delete('/posts/:id', checkAuth, postController.remove)
-// app.patch('/posts/:id', checkAuth, handleValidationErrors, postController.update)
+app.get('/posts', postController.getAll)
+app.get('/posts/tags', postController.getAllTags)
+app.get('/posts/:id', postController.getOne)
+app.post('/posts', checkAuth, postCreateValidator,postController.create)
+app.delete('/posts/:id', checkAuth, postController.remove)
+app.patch('/posts/:id', checkAuth, handleValidationErrors, postController.update)
 
 app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
