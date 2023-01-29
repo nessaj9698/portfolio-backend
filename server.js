@@ -6,7 +6,7 @@ import { userController, postController } from './server/controllers/index.js';
 import multer from 'multer'
 import cors from 'cors'
 import fs from 'fs'
-import { ModifierFlags } from 'typescript';
+
 
 mongoose.connect(
     'mongodb+srv://nessaj:htrcfh98@cluster0.0cezso6.mongodb.net/blog'
@@ -63,4 +63,4 @@ app.listen(process.env.PORT || 4444, (err) => {
 })
 
 
-module.exports = app
+
