@@ -9,7 +9,7 @@ import fs from 'fs'
 
 
 mongoose.connect(
-    'mongodb+srv://nessaj:htrcfh98@cluster0.0cezso6.mongodb.net/blog'
+    process.env.MONGODB_URI
 )
     .then(() => console.log('DB is ok'))
     .catch(err => {
